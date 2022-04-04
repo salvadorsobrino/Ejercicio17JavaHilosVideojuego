@@ -1,0 +1,53 @@
+package es.videojuego.modelo.negocio;
+
+import es.videojuego.modelo.entidad.Personaje;
+
+public class Fortaleza {
+	private String nombre;
+	private Personaje jefe; //Jefe (pudiendo ser Mago,Guerrero o Hechizero)
+	private Personaje campeon;
+	
+
+
+	public  synchronized void entrar(Personaje personaje) { //Metodo synchronized
+		if (jefe.getVida()>0) {
+			System.out.println(personaje.getNombre() +" entró en la Fortaleza " + this.nombre);
+			Batalla batalla = new Batalla();
+			batalla.setP1(jefe);
+			batalla.setP2(personaje);
+			Personaje pGanador = batalla.combatir();
+			System.out.println(pGanador +" salió victorioso");
+			if(jefe.getVida()<=0) {
+				campeon = pGanador;
+			} else {
+				System.out.println("¿ Quien podrá derrotar a "+jefe.getNombre());
+			}
+		} else {
+			System.out.println(personaje.getNombre() + " aclama al victorioso "+campeon.getNombre());
+		}
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public Personaje getJefe() {
+		return jefe;
+	}
+
+	public void setJefe(Personaje jefe) {
+		this.jefe = jefe;
+	}
+
+	public Personaje getCampeon() {
+		return campeon;
+	}
+
+	public void setCampeon(Personaje campeon) {
+		this.campeon = campeon;
+	}
+}
